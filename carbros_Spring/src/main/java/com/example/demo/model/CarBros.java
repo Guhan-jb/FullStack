@@ -1,7 +1,4 @@
 package com.example.demo.model;
-import java.sql.Date;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,27 +6,23 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="carbrosdata")
+@Table(name="carbros")
 public class CarBros {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
-@Column(name = "vehicle_id")
 private Long vehicleid;
 private String manufacturer;
 private String model;
-private Date launchdate;
-private float price,milage;
-private int noOfColors;
-public CarBros(Long vehicleid, String manufacturer, String model, Date launchdate, float price, float milage,
-		int noOfColors) {
+private String launch_date;
+private String price,mileage;
+public CarBros(Long vehicleid, String manufacturer, String model, String launch_date, String price, String mileage) {
 	super();
 	this.vehicleid = vehicleid;
 	this.manufacturer = manufacturer;
 	this.model = model;
-	this.launchdate = launchdate;
+	this.launch_date = launch_date;
 	this.price = price;
-	this.milage = milage;
-	this.noOfColors = noOfColors;
+	this.mileage = mileage;
 }
 public CarBros()
 {
@@ -53,34 +46,29 @@ public String getModel() {
 public void setModel(String model) {
 	this.model = model;
 }
-public Date getLaunchdate() {
-	return launchdate;
+public String getLaunch_date() {
+	return launch_date;
 }
-public void setLaunchdate(Date launchdate) {
-	this.launchdate = launchdate;
+public void setLaunchdate(String launch_date) {
+	this.launch_date = launch_date;
 }
-public float getPrice() {
+public String getPrice() {
 	return price;
 }
-public void setPrice(float price) {
+public void setPrice(String price) {
 	this.price = price;
 }
-public float getMilage() {
-	return milage;
+public String getMileage() {
+	return mileage;
 }
-public void setMilage(float milage) {
-	this.milage = milage;
+public void setMileage(String mileage) {
+	this.mileage = mileage;
 }
-public int getNoOfColors() {
-	return noOfColors;
-}
-public void setNoOfColors(int noOfColors) {
-	this.noOfColors = noOfColors;
-}
+
 @Override
 public String toString() {
 	return "CarBros [vehicleid=" + vehicleid + ", manufacturer=" + manufacturer + ", model=" + model + ", launchdate="
-			+ launchdate + ", price=" + price + ", milage=" + milage + ", noOfColors=" + noOfColors + "]";
+			+ launch_date + ", price=" + price + ", mileage=" + mileage +  "]";
 }
 
 }
