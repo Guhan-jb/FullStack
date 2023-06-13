@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 export default function AddCars() {
   const[vehicleid,setVehicleid]=useState('')
   const [price,setPrice]=useState('')
@@ -10,11 +11,13 @@ export default function AddCars() {
   const [mileage,setMileage]=useState('')
   const carData={vehicleid,model,manufacturer,price,launch_date,mileage}
   const baseURL = "http://localhost:8080/api/Vehicles";
+  const nav=useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post(`${baseURL}/add`, carData)
       .then((res) => {
         console.log(res);
+        nav("/AdminAllCars")
       })
       .catch((error) => {
         console.error("Error adding car", error);

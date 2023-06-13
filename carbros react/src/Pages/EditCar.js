@@ -1,13 +1,13 @@
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function EditCars() {
   const { vehicleId } = useParams();
   const [cars, setCars] = useState({});
   const baseURL = "http://localhost:8080/api/Vehicles";
-
+  const nav=useNavigate();
   useEffect(() => {
     axios.get(`${baseURL}/byid/${vehicleId}`)
       .then((response) => {
@@ -49,6 +49,7 @@ export default function EditCars() {
     axios.put(`${baseURL}/update`, carData)
       .then((res) => {
         console.log(res);
+        nav("/AdminAllCars")
       })
       .catch((error) => {
         console.error("Error updating car details", error);

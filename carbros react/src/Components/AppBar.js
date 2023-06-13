@@ -15,13 +15,13 @@ import { Outlet, useNavigate } from "react-router-dom";
 export default function Appbar() {
   const [showBasic, setShowBasic] = useState(false);
   const Email = localStorage.getItem("Email");
-  const nav=useNavigate()
+  const nav = useNavigate();
   const HandleLogout = () => {
     localStorage.setItem("Email", null);
-    nav("/")
+    nav("/");
   };
 
- const HandleLogin = (e) => {
+  const HandleLogin = (e) => {
     if (Email !== "null") {
       return (
         <MDBNavbarItem>

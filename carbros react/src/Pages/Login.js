@@ -19,25 +19,23 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .get(`${baseURL}/login`, user1)
-      .then((response) => {
-        setPost(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching login data:", error);
-      });
-    console.log(post);
-    if (post !== "invalid Email") {
-      if (post === "invalid password") {
-        setErrorMessages({ name: "password", message: errors.password });
-      } else {
-        localStorage.setItem("Email", email);
-
-        navigate("/");
-      }
-    } else {
-      setErrorMessages({ name: "email", message: errors.email });
-    }
+            .post('http://localhost:8080/api/user/login', user1)
+            .then((response) => {
+                console.log(response.data);
+                localStorage.setItem("Email", email)
+                navigate('/');
+            })
+            .catch((error) => {
+                console.error(error.response.data); // Log the error response from the server
+                // Display an appropriate error message to the user
+                if (error.response.status === 401) {
+                    alert('Invalid username or password');
+                } else if (error.response.status === 404) {
+                    alert('Username does not exist');
+                } else {
+                    alert('An error occurred during login');
+                }
+            });
   };
 
   const handleClick = (e) => {
