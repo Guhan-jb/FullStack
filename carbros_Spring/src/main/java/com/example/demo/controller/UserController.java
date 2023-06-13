@@ -1,4 +1,6 @@
 package com.example.demo.controller;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,11 +9,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.CarBros;
 import com.example.demo.model.UserData;
 import com.example.demo.service.UserService;
 
 @RestController
 @RequestMapping("/api/user")
+//@CrossOrigin
 public class UserController {
 	@Autowired
 	UserService uservice;
@@ -25,17 +29,19 @@ public class UserController {
 	}
  
  @PostMapping("/login")
- public String login(@RequestBody UserData web_data)
+ public boolean login(@RequestBody UserData web_data)
  {
-	 
-	 UserData db_data= uservice.loginbyId(web_data.getEmail()).orElse(null);
-	 if(db_data==null)
-		 return "invalid Email";
-	 String web_password=web_data.getPassword();
+	 Optional<UserData> data= uservice.loginbyId(web_data.getEmail());
+	 UserData db_data=data.get();
 	 String db_password=db_data.getPassword();
+	 String web_password=web_data.getPassword();
 	 if(db_password.equals(web_password))
-		 return "correct";
-	return "invalid password";
+		 return true;
+	return false;
  }
-
+// @PostMapping("/favcar")
+// public String addfav(@RequestBody CarBros fav)
+// {
+//	 
+// }
 }

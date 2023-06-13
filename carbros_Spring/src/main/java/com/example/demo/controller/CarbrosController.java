@@ -5,17 +5,19 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.CarBros;
+import com.example.demo.model.UserData;
 import com.example.demo.model.CarBros;
 import com.example.demo.repository.UserRepo;
 import com.example.demo.service.CarbrosService;
@@ -64,19 +66,6 @@ public class CarbrosController {
 	{
 		return vservice.getbymodel(model);
 	}
-	@Operation (summary= "gives car's details")
-	@ApiResponses (value = {@ApiResponse(responseCode = "200",description= "successful"), @ApiResponse(responseCode = "401",description= "invalid credentials"),
-	@ApiResponse(responseCode = "404",description= "not found")})
-	@GetMapping(value="/byid/{id}")
-	public Optional<CarBros> getbyid(@PathVariable("id") int id)
-	{
-		return vservice.read(id);
-	}
-	@PutMapping("/update")
-	public CarBros update(@RequestBody CarBros data)
-	{
-		return vservice.create(data);
-	}
 	@Operation (summary= "Deletes cars")
 	@ApiResponses (value = {@ApiResponse(responseCode = "200",description= "successful"), @ApiResponse(responseCode = "401",description= "invalid credentials"),
 	@ApiResponse(responseCode = "404",description= "not found")})
@@ -85,6 +74,15 @@ public class CarbrosController {
 		 vservice.delete(id);
 		return "id : " + id + " is deleted";
 	}
+//	@PostMapping("/{email}/favorites/{carId}")
+//    public void addToFavorites(@PathVariable("email") String email, @PathVariable("carId") int carId) {
+//		vservice.addToFavorites(email, carId);
+//    }
+//	@GetMapping("/fav/{email}")
+//	public Optional<UserData> getfav(@PathVariable("email") String email)
+//	{
+//		return uservice.loginbyId(email);
+//	}
 	 @GetMapping("/sortVehicles/{field}")
 		public Iterable<CarBros>getVEhiclesSorted(@PathVariable("field") String field)
 		{
